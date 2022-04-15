@@ -12,8 +12,9 @@ class StripeSubscriptionsController extends Controller
 {
     /**
      * @param $subscriptionId
-     * @return array
+     *
      * @throws \Stripe\Exception\ApiErrorException
+     * @return array
      */
     public function show($subscriptionId)
     {
@@ -35,8 +36,9 @@ class StripeSubscriptionsController extends Controller
 
     /**
      * @param $subscriptionId
-     * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Laravel\Cashier\Exceptions\SubscriptionUpdateFailure
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update($subscriptionId)
     {
@@ -50,6 +52,7 @@ class StripeSubscriptionsController extends Controller
 
     /**
      * @param $subscriptionId
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function cancel($subscriptionId)
@@ -68,6 +71,7 @@ class StripeSubscriptionsController extends Controller
 
     /**
      * @param $subscriptionId
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function resume($subscriptionId)
@@ -82,8 +86,9 @@ class StripeSubscriptionsController extends Controller
 
     /**
      * @param \Laravel\Cashier\Subscription $subscription
-     * @return array
+     *
      * @throws \Stripe\Exception\ApiErrorException
+     * @return array
      */
     protected function formatSubscription(Subscription $subscription)
     {
@@ -93,10 +98,10 @@ class StripeSubscriptionsController extends Controller
             'plan_amount' => $stripeSubscription->plan->amount,
             'plan_interval' => $stripeSubscription->plan->interval,
             'plan_currency' => $stripeSubscription->plan->currency,
-            'plan' => $subscription->stripe_plan,
+            'plan' => $subscription->stripe_price,
             'stripe_plan' => $stripeSubscription->plan->id,
             'ended' => $subscription->ended(),
-            'cancelled' => $subscription->cancelled(),
+            'cancelled' => $subscription->canceled(),
             'active' => $subscription->active(),
             'on_trial' => $subscription->onTrial(),
             'on_grace_period' => $subscription->onGracePeriod(),
@@ -114,7 +119,8 @@ class StripeSubscriptionsController extends Controller
     /**
      * Format the plans collection.
      *
-     * @param  \Stripe\Collection $plans
+     * @param \Stripe\Collection $plans
+     *
      * @return array
      */
     protected function formatPlans($plans)
@@ -132,6 +138,7 @@ class StripeSubscriptionsController extends Controller
 
     /**
      * @param $invoices
+     *
      * @return array
      */
     protected function formatInvoices($invoices)
@@ -153,6 +160,7 @@ class StripeSubscriptionsController extends Controller
 
     /**
      * @param mixed $value
+     *
      * @return string|null
      */
     protected function formatDate($value)
